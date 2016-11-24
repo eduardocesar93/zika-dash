@@ -12,3 +12,6 @@ bin/
 *.rar
 *.xlsx
 *.png
+
+# Notebook checkpoints
+notebooks/.ipynb_checkpoints/
