@@ -1,0 +1,14 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# IDE related
+.idea/
+obj/
+bin/
+
+# Data and plot files
+*.csv
+*.rar
+*.xlsx
+*.png
