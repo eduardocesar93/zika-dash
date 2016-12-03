@@ -1,14 +1,7 @@
 // List of locals and Zika Rate
 neighborhoodMap = {
-    test1: {
-        center: {lat: -22.813711, lng: -43.208722},
-        mosquitoRate: 1000
-    },
-    test2: {
-        center: {lat: -22.902711, lng: -43.207722},
-        mosquitoRate: 500
-    }
-};
+    'MADUREIRA': 2000,
+    'MARECHAL HERMES': 1000};
 
 // Construct a Polygon.
 var constructPolygon = function(coordinates, map){
@@ -27,20 +20,37 @@ var constructPolygon = function(coordinates, map){
     newArea.setMap(map);
 };
 
+
+
 // Construct a Circle.
 var constructCircles = function(neighborhoodMap, map){
-    for (var item in neighborhoodMap) {
-        var itemCircle = new google.maps.Circle({
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#FF0000',
-            fillOpacity: 0.35,
-            map: map,
-            center: neighborhoodMap[item].center,
-            radius: Math.sqrt(neighborhoodMap[item].mosquitoRate) * 100
-        });
-    }
+    $.ajax({
+        url: "zika-por-bairro",
+        dataType: "json",
+        success: function(data) {
+            for (var item in data) {
+                var geocoder =  new google.maps.Geocoder();
+                geocoder.geocode( { 'address': item + "Rio de Janeiro" }, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        var itemCircle = new google.maps.Circle({
+                            strokeColor: '#FF0000',
+                            strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: '#FF0000',
+                            fillOpacity: 0.35,
+                            map: map,
+                            center: {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()},
+                            radius: 200
+                        });
+                    }
+                    else{
+                        console.log("error in " + item);
+                        alert(item);
+                    }
+                });
+            }
+        }
+    });
 }
 
 // Initialize the google Map
