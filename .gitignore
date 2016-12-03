@@ -8,10 +8,8 @@ obj/
 bin/
 
 # Data and plot files
-*.csv
 *.rar
 *.xlsx
-*.png
 
 # Notebook checkpoints
 notebooks/.ipynb_checkpoints/
