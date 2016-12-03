@@ -3,6 +3,21 @@
     height: 100%;
 }
 
+#dashboard {
+    position: absolute;
+    top: 10%;
+    z-index: 99;
+    width: 20%;
+    height: 85%;
+    background-color: #f0f0f0;
+    float: right;
+    opacity: 0.3;
+    right: 5%;
+}
+#dashboard:hover {
+    opacity: 0.8;
+}
+
 .manancial {
     margin-top: -1px;
 }
