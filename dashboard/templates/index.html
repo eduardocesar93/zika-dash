@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="static/stylesheets/custom.css">
         <link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
         <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
 	</head>
 	<body>
         <header id="site-header">
@@ -20,7 +21,16 @@
 	    </header>
         <div id="map"></div>
 		<div id="dashboard">
-
+			<h3 style="margin-left:5%;">Disease</h3>
+			<div class="checkbox zika">
+			  <label><input type="checkbox" value="" class="zikac" style="color:red;">Zika</label>
+			</div>
+			<div class="checkbox  dengue">
+			  <label><input type="checkbox" value="" class="denguec">Dengue</label>
+			</div>
+			<div class="checkbox chicku">
+			  <label><input type="checkbox" value="" class="chikuc">Chikungunya</label>
+			</div>
 		</div>
 	</body>
 	<footer>
@@ -28,4 +38,5 @@
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 	<script src="static/scripts/maps.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </html>
