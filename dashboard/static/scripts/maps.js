@@ -1,7 +1,8 @@
 // List of locals and Zika Rate
 neighborhoodMap = {
     'MADUREIRA': 2000,
-    'MARECHAL HERMES': 1000};
+    'MARECHAL HERMES': 1000
+};
 
 // Construct a Polygon.
 var constructPolygon = function(coordinates, map){
@@ -20,37 +21,34 @@ var constructPolygon = function(coordinates, map){
     newArea.setMap(map);
 };
 
-
+function someFunction(map, addresses, callback) {
+    var coords = [];
+    var radius = [];
+    for(var item in addresses) {
+        currItem = item;
+        currValue = addresses[item];
+        var geocoder = new google.maps.Geocoder();
+        if (geocoder) {
+            geocoder.geocode({'address':currItem + " Rio de Janeiro"}, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    coords.push({lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()});
+                    if(coords.length == addresses.length) {
+                        if( typeof callback == 'function' ) {
+                            callback(coords, radius);
+                        }
+                    }
+                }
+                else {
+                    throw('No results found: ' + status);
+                }
+            });
+        }
+     }
+  }
 
 // Construct a Circle.
-var constructCircles = function(neighborhoodMap, map){
-    $.ajax({
-        url: "zika-por-bairro",
-        dataType: "json",
-        success: function(data) {
-            for (var item in data) {
-                var geocoder =  new google.maps.Geocoder();
-                geocoder.geocode( { 'address': item + "Rio de Janeiro" }, function(results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        var itemCircle = new google.maps.Circle({
-                            strokeColor: '#FF0000',
-                            strokeOpacity: 0.8,
-                            strokeWeight: 2,
-                            fillColor: '#FF0000',
-                            fillOpacity: 0.35,
-                            map: map,
-                            center: {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()},
-                            radius: 200
-                        });
-                    }
-                    else{
-                        console.log("error in " + item);
-                        alert(item);
-                    }
-                });
-            }
-        }
-    });
+var constructCircles = function(map){
+
 }
 
 // Initialize the google Map
@@ -61,7 +59,25 @@ function myMap() {
         zoom: 11
     }
     var map = new google.maps.Map(mapCanvas, mapOptions);
-    constructCircles(neighborhoodMap, map);
+     $.ajax({
+        url: "zika-por-bairro",
+        dataType: "json",
+        async: false,
+        success: function(data){someFunction(map, data, function(coords, radius) {
+        for (var i = 0; i < coords.length; i++) {
+            var itemCircle = new google.maps.Circle({
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.35,
+                map: map,
+                center: coords[i],
+                radius: radius[i],
+            });
+        }
+    })}
+    });
 }
 
 
